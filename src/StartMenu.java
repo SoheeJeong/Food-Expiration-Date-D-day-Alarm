@@ -43,11 +43,11 @@ public class StartMenu extends JFrame{
 		tfnopi.setBounds(350,480,150,30);
 		Done.setBounds(280,550,150,30);
 		
-		inst.setFont(new Font("HY¿±¼­L",Font.BOLD,20));
-		garo.setFont(new Font("HY¿±¼­L",Font.BOLD,18));
-		sero.setFont(new Font("HY¿±¼­L",Font.BOLD,18));
-		nopi.setFont(new Font("HY¿±¼­L",Font.BOLD,18));
-		Done.setFont(new Font("HY¿±¼­L",Font.BOLD,18));
+		inst.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
+		garo.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		sero.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		nopi.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Done.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
 		
 		add(inst);
 		add(garo);
