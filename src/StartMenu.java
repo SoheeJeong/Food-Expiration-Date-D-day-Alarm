@@ -4,33 +4,33 @@ import java.awt.event.*;
 
 
 public class StartMenu extends JFrame{
+	public static JTextField tfgaro=new JTextField(20);
+	public static JTextField tfsero=new JTextField(20);
+	public static JTextField tfnopi=new JTextField(20);
+	public static String refgaro=tfgaro.getText(); //냉장고 가로칸수
+	public static String refsero=tfsero.getText(); //세로
+	public static String refnopi=tfnopi.getText(); //높이
+	public static Color color=new Color(0xE1F5A9);
 	
-	public StartMenu(){
+	public StartMenu(){ //StartMenu라는 프레임
 		setTitle("시작화면");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1500,850);
-		setLocationRelativeTo(null); //이건 뭔의미지
+		setLocationRelativeTo(null); 
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon("시작화면4.png")));
 		setLayout(new FlowLayout());
-		JLabel wc=new JLabel("Welcome!");
-		add(wc);
-		setSize(999,849);
-		setSize(1500,850);
+		setSize(1500,850); //창 크기
 		setResizable(false);
 		setLayout(null);
-		Color color=new Color(0xE1F5A9);
-		
-		
+				
 		JLabel inst=new JLabel("냉장고의 층수와 각 층의 가로, 세로 칸 수를 입력하세요.");
 		JLabel garo=new JLabel("가로 칸 수");
 		JLabel sero=new JLabel("세로 칸 수");
 		JLabel nopi=new JLabel("높이 층 수");
-		JTextField tfgaro=new JTextField(20);
-		JTextField tfsero=new JTextField(20);
-		JTextField tfnopi=new JTextField(20);
-		JButton Done=new JButton("작성 완료");
 		
+		JButton Done=new JButton("작성 완료");
+				
 		inst.setBackground(color);
 		garo.setBackground(color);
 		sero.setBackground(color);
@@ -66,7 +66,7 @@ public class StartMenu extends JFrame{
 	class MyMouseListener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
 			JButton btn=(JButton)e.getSource();
-			dispose();
+			dispose(); //현재 창 닫힘...이거말고 걍 프레임전환 없나
 			new InitialMenu().setVisible(true);
 		}
 	}
