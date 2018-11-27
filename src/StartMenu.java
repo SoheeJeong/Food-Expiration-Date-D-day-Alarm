@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+
 
 public class StartMenu extends JFrame{
+	
 	public StartMenu(){
 		setTitle("Ω√¿€»≠∏È");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,11 +46,12 @@ public class StartMenu extends JFrame{
 		tfnopi.setBounds(350,480,150,30);
 		Done.setBounds(280,550,150,30);
 		
-		inst.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,21));
+		inst.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,20));
 		garo.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,18));
 		sero.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,18));
 		nopi.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,18));
 		Done.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,18));
+		Done.addMouseListener(new MyMouseListener());
 		
 		add(inst);
 		add(garo);
@@ -58,6 +62,13 @@ public class StartMenu extends JFrame{
 		add(tfnopi);
 		add(Done);
 		setVisible(true);
+	}
+	class MyMouseListener extends MouseAdapter{
+		public void mouseClicked(MouseEvent e) {
+			JButton btn=(JButton)e.getSource();
+			dispose();
+			new InitialMenu().setVisible(true);
+		}
 	}
 	public static void main(String[]args) {
 		new StartMenu();		
