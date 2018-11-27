@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class InitialMenu extends JFrame{
 	public InitialMenu() {
-		
+		blahblah
 	}
 	
 	
