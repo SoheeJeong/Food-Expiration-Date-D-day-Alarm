@@ -18,14 +18,14 @@ public class InitialMenu extends JFrame{
 		setResizable(false);
 		setLayout(null);
 		getContentPane().setBackground(StartMenu.color);
-		//마우스리스너가 버튼에 가도록 바꾸기 getContentPane().addMouseListener(new MyMouseListener());
 		//냉장고 정보 입력하기
 		JLabel inst1=new JLabel("사용 방법: 아무 네모칸이나 눌러서 유통기한을 입력합니다.");
 		JLabel inst2=new JLabel("날짜가 임박하면 색깔이 바뀝니다.");
 		JLabel inst3=new JLabel("자세한 설명은 \"사용 방법\"메뉴를 참고하세요.");
 		JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
+		JLabel imageLabel=new JLabel(new ImageIcon("버튼2.png"));
 		//버튼이미지 넣기
-		add(inst1);add(inst2);add(inst3);add(inst4);//add(이미지);
+		add(inst1);add(inst2);add(inst3);add(inst4);add(imageLabel);
 
 		inst1.setFont(new Font("맑은고딕",Font.BOLD,30));
 		inst2.setFont(new Font("맑은고딕",Font.BOLD,30));
@@ -36,7 +36,8 @@ public class InitialMenu extends JFrame{
 		inst2.setBounds(20, 80, 1000, 30);
 		inst3.setBounds(20, 140, 1000, 30);
 		inst4.setBounds(20, 200, 1000, 30);
-
+		imageLabel.setBounds(20,300,550,550);
+		imageLabel.addMouseListener(new MyMouseListener());
 		setVisible(true);
 	}
 	private void createMenu() {
@@ -68,9 +69,9 @@ public class InitialMenu extends JFrame{
 
 	class MyMouseListener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) { //버튼 이미지 눌렀을 때!
+			getContentPane().setForeground(Color.WHITE);
 			createMenu(); //메뉴바 만들기
-			
-			 //여기서 누를때마다 새로만들기 말고 저장되어있는거 불러오는 방법? ->setvisible로
+			setContentPane(new Menu나의냉장고().new MyPanel());
 		}
 	}
 
@@ -81,14 +82,23 @@ public class InitialMenu extends JFrame{
 			case "숨기기": 
 				getContentPane().setVisible(false);
 			case "보기":
-				new Menu나의냉장고();
+				
+				//p.420참고
+				//콘테트페인이 비어있는지 검사. 비어있다면 setvisible트루. 
+				//비어있지 않다면 사용방법 이미지 null 아닌지 검사. null 아니라면 이미지 null되게하기.
+				//이미지 null이라면 그대로 두기.
+				 //여기서 누를때마다 새로만들기 말고 저장되어있는거 불러오는 방법?->setvisible로
 			case "사용 방법":
 				new Menu사용방법();
+				//이미지 띄우기
 			case "초기화":
 				new Menu초기화();
+				//팝업창 띄우기
 			case "종료":
 				new Menu종료();
+				//종료하시겠습니까? 팝업창 띄우기
 			}
 		}
 	}
+	
 }
