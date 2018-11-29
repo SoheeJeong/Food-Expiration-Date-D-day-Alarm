@@ -4,6 +4,9 @@ import java.awt.event.*;
 
 public class StartMenu extends JFrame{
 	public static Color color=new Color(0xE1F5A9);
+	public static String Lastname;
+	public static String Firstname;
+	public static String Yourpobu;
 	
 	public StartMenu(){ //StartMenu라는 프레임
 		setTitle("시작화면");
@@ -25,7 +28,10 @@ public class StartMenu extends JFrame{
 		JTextField tfFirst=new JTextField(20);
 		JTextField tfPobu=new JTextField(20);
 		JButton Go=new JButton("시작하기");
-				
+		Lastname=tfLast.getText();
+		Firstname=tfFirst.getText();
+		Yourpobu=tfPobu.getText();
+		
 		start.setBackground(color);
 		lastName.setBackground(color);
 		firstName.setBackground(color);
