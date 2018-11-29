@@ -2,14 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class StartMenu extends JFrame{
-	public static JTextField tfgaro=new JTextField(20);
-	public static JTextField tfsero=new JTextField(20);
-	public static JTextField tfnopi=new JTextField(20);
-	public static String refgaro=tfgaro.getText(); //³ÃÀå°í °¡·ÎÄ­¼ö
-	public static String refsero=tfsero.getText(); //¼¼·Î
-	public static String refnopi=tfnopi.getText(); //³ôÀÌ
 	public static Color color=new Color(0xE1F5A9);
 	
 	public StartMenu(){ //StartMenu¶ó´Â ÇÁ·¹ÀÓ
@@ -24,43 +17,45 @@ public class StartMenu extends JFrame{
 		setResizable(false);
 		setLayout(null);
 				
-		JLabel inst=new JLabel("³ÃÀå°íÀÇ Ãþ¼ö¿Í °¢ ÃþÀÇ °¡·Î, ¼¼·Î Ä­ ¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
-		JLabel garo=new JLabel("°¡·Î Ä­ ¼ö");
-		JLabel sero=new JLabel("¼¼·Î Ä­ ¼ö");
-		JLabel nopi=new JLabel("³ôÀÌ Ãþ ¼ö");
-		
-		JButton Done=new JButton("ÀÛ¼º ¿Ï·á");
+		JLabel start=new JLabel("È¯¿µÇÕ´Ï´Ù! Hello!");
+		JLabel lastName=new JLabel("¼º/Last name");
+		JLabel firstName=new JLabel("ÀÌ¸§/First name");
+		JLabel Pobu=new JLabel("Æ÷ºÎ ÇÑ¸¶µð!");
+		JTextField tfLast=new JTextField(20);
+		JTextField tfFirst=new JTextField(20);
+		JTextField tfPobu=new JTextField(20);
+		JButton Go=new JButton("½ÃÀÛÇÏ±â");
 				
-		inst.setBackground(color);
-		garo.setBackground(color);
-		sero.setBackground(color);
-		nopi.setBackground(color);
+		start.setBackground(color);
+		lastName.setBackground(color);
+		firstName.setBackground(color);
+		Pobu.setBackground(color);
 		
-		inst.setBounds(150,340,700,30);
-		garo.setBounds(200,400,100,30);
-		sero.setBounds(200,440,100,30);
-		nopi.setBounds(200,480,100,30);
+		start.setBounds(150,340,700,30);
+		lastName.setBounds(200,400,150,30);
+		firstName.setBounds(200,440,150,30);
+		Pobu.setBounds(200,480,150,30);
 		
-		tfgaro.setBounds(350,400,150,30);
-		tfsero.setBounds(350,440,150,30);
-		tfnopi.setBounds(350,480,150,30);
-		Done.setBounds(280,550,150,30);
+		tfLast.setBounds(350,400,150,30);
+		tfFirst.setBounds(350,440,150,30);
+		tfPobu.setBounds(350,480,150,30);
+		Go.setBounds(280,550,150,30);
 		
-		inst.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
-		garo.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		sero.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		nopi.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		Done.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		Done.addMouseListener(new MyMouseListener());
+		start.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
+		lastName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		firstName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Pobu.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Go.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Go.addMouseListener(new MyMouseListener());
 		
-		add(inst);
-		add(garo);
-		add(tfgaro);
-		add(sero);
-		add(tfsero);
-		add(nopi);
-		add(tfnopi);
-		add(Done);
+		add(start);
+		add(lastName);
+		add(firstName);
+		add(Pobu);
+		add(tfLast);
+		add(tfFirst);
+		add(tfPobu);
+		add(Go);
 		setVisible(true);
 	}
 	class MyMouseListener extends MouseAdapter{
