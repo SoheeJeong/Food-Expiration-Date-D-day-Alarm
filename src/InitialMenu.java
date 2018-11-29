@@ -6,12 +6,14 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class InitialMenu extends JFrame{
+
 	public static JButton Done;
 	public static int refgaro;
 	public static int refsero;
 	public static int refnopi;
 	public static Panel1 panel1;
 	public static Panel2 panel2;
+
 	public InitialMenu() {
 		setTitle("메뉴화면");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,18 +31,22 @@ public class InitialMenu extends JFrame{
 	private void createMenu() {//메뉴 만들기
 		JMenuBar mb=new JMenuBar();
 		JMenu refMenu=new JMenu("나의 냉장고");
-		JMenu HowtoMenu=new JMenu("사용 방법");
-		JMenu clearMenu=new JMenu("초기화하기");
-		JMenu exitMenu=new JMenu("종료하기");
+		JMenu setting=new JMenu("설정");
 
 		mb.add(refMenu);
-		mb.add(HowtoMenu);
-		mb.add(clearMenu);
-		mb.add(exitMenu);
+		mb.add(setting);
+
 		JMenuItem hide=new JMenuItem("숨기기");
 		JMenuItem show=new JMenuItem("보기");
+		JMenuItem HowtoMenu=new JMenu("사용 방법");
+		JMenuItem clearMenu=new JMenu("초기화하기");
+		JMenuItem exitMenu=new JMenu("종료하기");
+
 		refMenu.add(hide);
 		refMenu.add(show);
+		setting.add(HowtoMenu);
+		setting.add(clearMenu);
+		setting.add(exitMenu);
 
 		HowtoMenu.addActionListener(new MenuActionListener());
 		clearMenu.addActionListener(new MenuActionListener());
@@ -106,33 +112,42 @@ public class InitialMenu extends JFrame{
 			setLayout(new GridLayout(10,10,1,1));
 			for(int i=0;i<100;i++) {
 				int num=i+1;
-				label=new JLabel(Integer.toString(num));
+				label=new JLabel();
 				label.setOpaque(true);
 				add(label);
 				label.setBackground(new Color(0xF5F6F6));
-				//구분선 추가
 				label.setFont(new Font("맑은고딕",Font.BOLD,25));
 				label.addMouseListener(new MyMouseListener2());
 			}
 			setVisible(true);
 		}
 	}
-	class MyMouseListener2 extends MouseAdapter{//냉장고의 각 라벨 누를 때
+	class MyMouseListener2 extends MouseAdapter{//냉장고의 각 번호 라벨 누를 때
 		public void mouseClicked(MouseEvent e) {
 			JLabel la=(JLabel)e.getSource();
 			String foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
-			la.setText(foodname);
-			la.setFont(new Font("맑은고딕",Font.BOLD,20));
+			if(foodname!=null) 
+				la.setText(foodname);
+			else {}
+			la.setFont(new Font("맑은고딕",Font.BOLD,30));
 			//팝업창
 			//음식 이름이랑 유통기한 받기
 			//라벨 setText(음식이름)
 			//
 		}
 		//public void timecalculate(유통기한날짜){
-			//LocalDate localDate=LocalDate.now(ZoneId.of("GMT+09:00"));
+		//LocalDate localDate=LocalDate.now(ZoneId.of("GMT+09:00"));
 		//}
 	}
-	
+	private void MenuExit() {
+		int result=JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?","종료",JOptionPane.YES_NO_OPTION);
+
+		if(result==JOptionPane.CLOSED_OPTION);
+		else if(result==JOptionPane.YES_OPTION) {
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		else;
+	}
 	class MenuActionListener implements ActionListener{ //메뉴 클릭했을 때
 		public void actionPerformed(ActionEvent e) {
 			String cmd=e.getActionCommand();
@@ -143,16 +158,22 @@ public class InitialMenu extends JFrame{
 			case "보기":
 				setContentPane(panel2);
 				break;
-				//p.420참고
+			case "종료하기":
+				int result=JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?","종료",JOptionPane.YES_NO_OPTION);
+				if(result==JOptionPane.CLOSED_OPTION);
+				else if(result==JOptionPane.YES_OPTION) {
+					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				}
+				else;
+				break;
 			case "사용 방법":
 				new Menu사용방법();
 				break;
 			case "초기화":
 				new Menu초기화();
 				break;
-			case "종료":
-				new Menu종료();
 			}
+			//p.420참고
 		}
 	}
 }
