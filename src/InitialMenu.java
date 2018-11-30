@@ -14,7 +14,8 @@ public class InitialMenu extends JFrame{
 	public static int refnopi;
 	public static Panel1 panel1;
 	public static Panel2 panel2;
-
+	public static InstructionPanel instructionpanel;
+	
 	public InitialMenu() {
 		setTitle("메뉴화면");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,8 +40,8 @@ public class InitialMenu extends JFrame{
 
 		JMenuItem hide=new JMenuItem("숨기기");
 		JMenuItem show=new JMenuItem("보기");
-		JMenuItem HowtoMenu=new JMenu("사용 방법");
-		JMenuItem clearMenu=new JMenu("초기화하기");
+		JMenuItem HowtoMenu=new JMenu("사용방법");
+		JMenuItem clearMenu=new JMenu("새로고침");
 		JMenuItem exitMenu=new JMenu("종료하기");
 
 		refMenu.add(hide);
@@ -86,7 +87,7 @@ public class InitialMenu extends JFrame{
 			inst3.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst4.setFont(new Font("맑은고딕",Font.BOLD,30));
 			pobu.setFont(new Font("맑은고딕",Font.BOLD,30));
-			
+
 			pobu.setBounds(20, 10, 150, 30);
 			name.setBounds(20, 40, 100, 30);
 			greet.setBounds(120, 40, 1000, 30);
@@ -117,7 +118,7 @@ public class InitialMenu extends JFrame{
 	}
 	class Panel2 extends JPanel{//냉장고 판넬
 		Panel2(){
-			JLabel label;
+			JLabel label = null;
 			setSize(1500,830);
 			setBackground(Color.BLACK);
 			setLayout(new GridLayout(10,10,1,1));
@@ -136,30 +137,69 @@ public class InitialMenu extends JFrame{
 	class MyMouseListener2 extends MouseAdapter{//냉장고의 각 번호 라벨 누를 때
 		public void mouseClicked(MouseEvent e) {
 			JLabel la=(JLabel)e.getSource();
-			String foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
-			if(foodname!=null) 
-				la.setText(foodname);
-			else {}
 			la.setFont(new Font("맑은고딕",Font.BOLD,30));
-			//팝업창
-			//음식 이름이랑 유통기한 받기
-			//라벨 setText(음식이름)
-			//
+			if(la.getText().isEmpty()) {
+				String foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
+				//유통기한 년, 월, 일 입력받기(year,month,date)
+				if(foodname!=null) 
+					la.setText(foodname);
+			}
+			else if(!la.getText().isEmpty()){
+				//이름 바꾸기or유통기한 바꾸기or<<유통기한 보기->디데이로 보기 or날짜 보기>>or초기화하기 버튼 만들기
+				//아니면 새로운 프레임을 띄우던가
+			}
+			//배경색 바꾸기
+			la.setBackground(SetColor(year,month,day));
+			la.setOpaque(true);	
 		}
-		//public void timecalculate(유통기한날짜){
-		//LocalDate localDate=LocalDate.now(ZoneId.of("GMT+09:00"));
-		//}
 	}
-	class InstructionPanel extends JPanel{
+	public int timecalculate(int year,int month, int day){ //dday 계산기
+		try {
+			Calendar today=Calendar.getInstance();
+			Calendar dday=Calendar.getInstance();
+			dday.set(year, month,day);
+			long ddday=dday.getTimeInMillis()/(24*60*60*1000);
+			long tday=today.getTimeInMillis()/(24*60*60*1000);
+			long count=tday-ddday;
+			return (int)count+1;
+		}
+		catch(Exception f) {
+			f.printStackTrace();
+			return -1;
+		}
+	}
+	class SetColor{ //유통기한별 라벨색깔 세팅하기
+		public Color SetColor(int year,int month,int day) {
+			int ddaycount=timecalculate(year,month,day);
+			Color colors = null;
+			if(ddaycount<=1) {
+				colors=new Color(0xFC2F2F);
+			}
+			else if(1<ddaycount&&ddaycount<=4) {
+				colors=new Color(0xF99E1E);
+			}
+			else if(4<ddaycount&&ddaycount<=7) {
+				colors= new Color(0xF4E228);
+			}
+			else if(7<ddaycount&&ddaycount<=14) {
+				colors=new Color(0x8BF462);
+			}
+			else if(14<ddaycount) {
+				colors= new Color(0x2FC0F1);
+			}
+			return colors;
+		}
+	}
+	class InstructionPanel extends JPanel{ //사용 방법 이미지 만들어야됨
 		InstructionPanel(){
-			ImageIcon image=new ImageIcon("이미지 경로.png");
+			ImageIcon image=new ImageIcon("버튼2.png");
 			Image img=image.getImage();
 			Image changedImg=img.getScaledInstance(1500, 800, Image.SCALE_SMOOTH);
 			ImageIcon Icon=new ImageIcon(changedImg);
-			JLabel img=new JLabel(Icon);
+			JLabel imge=new JLabel(Icon);
 			setLayout(null);
 			setSize(1500,850);
-			add(img);			
+			add(imge);			
 		}
 	}
 	class MenuActionListener implements ActionListener{ //메뉴 클릭했을 때
@@ -184,11 +224,10 @@ public class InitialMenu extends JFrame{
 					setContentPane(panel2);
 				}
 				break;
-			case "사용 방법":
-				new Menu사용방법();
-				
+			case "사용방법":
+				setContentPane(instructionpanel);
 				break;
-			case "초기화":
+			case "새로고침":
 				new Menu초기화();
 				break;
 			}

@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class Menu초기화 extends JFrame{
 
 	public Menu초기화() {
-	//팝업창
+	//새로고침!
 	}
 
 }
