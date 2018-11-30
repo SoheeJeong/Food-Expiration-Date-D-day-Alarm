@@ -6,7 +6,8 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class InitialMenu extends JFrame{
-
+	public static JTextField name;
+	public static JTextField pobu;
 	public static JButton Done;
 	public static int refgaro;
 	public static int refsero;
@@ -63,27 +64,37 @@ public class InitialMenu extends JFrame{
 			setBackground(StartMenu.color);
 			setLayout(null);
 			//냉장고 정보 입력하기
-			JLabel greet=new JLabel(StartMenu.Lastname+StartMenu.Firstname+"님 안녕하세요.");
+			JTextField name=new JTextField();
+			System.out.print(StartMenu.Lastname+StartMenu.Firstname);
+			//name.setText(StartMenu.Lastname+StartMenu.Firstname);
+			JLabel greet=new JLabel("님 안녕하세요.");
 			JLabel inst1=new JLabel("사용 방법: 아무 네모칸이나 눌러서 유통기한을 입력합니다.");
 			JLabel inst2=new JLabel("날짜가 임박하면 색깔이 바뀝니다.");
 			JLabel inst3=new JLabel("자세한 설명은 \"사용 방법\"메뉴를 참고하세요.");
-			JLabel inst4=new JLabel(StartMenu.Yourpobu+" 시작하려면 버튼을 클릭하세요!");
+			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
+			JTextField pobu=new JTextField();
+			System.out.print(StartMenu.Yourpobu);
+			//pobu.setText(StartMenu.Yourpobu);
 			JLabel imageLabel=new JLabel(new ImageIcon("버튼2.png"));
 			//버튼이미지 넣기
-			add(greet);add(inst1);add(inst2);add(inst3);add(inst4);add(imageLabel);
+			add(name);add(greet);add(inst1);add(inst2);add(inst3);add(inst4);add(imageLabel);add(pobu);
 
+			name.setFont(new Font("맑은고딕",Font.BOLD,30));
 			greet.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst1.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst2.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst3.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst4.setFont(new Font("맑은고딕",Font.BOLD,30));
-
-			greet.setBounds(20, 20, 1000, 30);
-			inst1.setBounds(20, 80, 1000, 30);
-			inst2.setBounds(20, 140, 1000, 30);
-			inst3.setBounds(20, 200, 1000, 30);
-			inst4.setBounds(20, 260, 1500, 30);
-			imageLabel.setBounds(20,340,550,550);
+			pobu.setFont(new Font("맑은고딕",Font.BOLD,30));
+			
+			pobu.setBounds(20, 10, 150, 30);
+			name.setBounds(20, 40, 100, 30);
+			greet.setBounds(120, 40, 1000, 30);
+			inst1.setBounds(20, 100, 1000, 30);
+			inst2.setBounds(20, 160, 1000, 30);
+			inst3.setBounds(20, 220, 1000, 30);
+			inst4.setBounds(20, 280, 1500, 30);
+			imageLabel.setBounds(20,360,550,550);
 			imageLabel.addMouseListener(new MyMouseListener());
 			setVisible(true);
 		}
@@ -139,14 +150,17 @@ public class InitialMenu extends JFrame{
 		//LocalDate localDate=LocalDate.now(ZoneId.of("GMT+09:00"));
 		//}
 	}
-	private void MenuExit() {
-		int result=JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?","종료",JOptionPane.YES_NO_OPTION);
-
-		if(result==JOptionPane.CLOSED_OPTION);
-		else if(result==JOptionPane.YES_OPTION) {
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	class InstructionPanel extends JPanel{
+		InstructionPanel(){
+			ImageIcon image=new ImageIcon("이미지 경로.png");
+			Image img=image.getImage();
+			Image changedImg=img.getScaledInstance(1500, 800, Image.SCALE_SMOOTH);
+			ImageIcon Icon=new ImageIcon(changedImg);
+			JLabel img=new JLabel(Icon);
+			setLayout(null);
+			setSize(1500,850);
+			add(img);			
 		}
-		else;
 	}
 	class MenuActionListener implements ActionListener{ //메뉴 클릭했을 때
 		public void actionPerformed(ActionEvent e) {
@@ -158,16 +172,21 @@ public class InitialMenu extends JFrame{
 			case "보기":
 				setContentPane(panel2);
 				break;
-			case "종료하기":
+			case "종료하기": //여기 왜안됨..
 				int result=JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?","종료",JOptionPane.YES_NO_OPTION);
-				if(result==JOptionPane.CLOSED_OPTION);
+				if(result==JOptionPane.CLOSED_OPTION) {
+					setContentPane(panel2);
+				}
 				else if(result==JOptionPane.YES_OPTION) {
 					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				}
-				else;
+				else {
+					setContentPane(panel2);
+				}
 				break;
 			case "사용 방법":
 				new Menu사용방법();
+				
 				break;
 			case "초기화":
 				new Menu초기화();

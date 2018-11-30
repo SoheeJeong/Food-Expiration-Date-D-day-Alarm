@@ -7,7 +7,7 @@ public class StartMenu extends JFrame{
 	public static String Lastname;
 	public static String Firstname;
 	public static String Yourpobu;
-	
+
 	public StartMenu(){ //StartMenu¶ó´Â ÇÁ·¹ÀÓ
 		setTitle("½ÃÀÛÈ­¸é");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,7 +19,7 @@ public class StartMenu extends JFrame{
 		setSize(1500,850); //Ã¢ Å©±â
 		setResizable(false);
 		setLayout(null);
-				
+
 		JLabel start=new JLabel("È¯¿µÇÕ´Ï´Ù! Hello!");
 		JLabel lastName=new JLabel("¼º/Last name");
 		JLabel firstName=new JLabel("ÀÌ¸§/First name");
@@ -36,24 +36,24 @@ public class StartMenu extends JFrame{
 		lastName.setBackground(color);
 		firstName.setBackground(color);
 		Pobu.setBackground(color);
-		
+
 		start.setBounds(150,340,700,30);
 		lastName.setBounds(200,400,150,30);
 		firstName.setBounds(200,440,150,30);
 		Pobu.setBounds(200,480,150,30);
-		
+
 		tfLast.setBounds(350,400,150,30);
 		tfFirst.setBounds(350,440,150,30);
 		tfPobu.setBounds(350,480,150,30);
 		Go.setBounds(280,550,150,30);
-		
+
 		start.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
 		lastName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
 		firstName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
 		Pobu.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
 		Go.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
 		Go.addMouseListener(new MyMouseListener());
-		
+
 		add(start);
 		add(lastName);
 		add(firstName);
@@ -67,10 +67,13 @@ public class StartMenu extends JFrame{
 	class MyMouseListener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
 			JButton btn=(JButton)e.getSource();
+			//InitialMenu.name.setText(StartMenu.Lastname+StartMenu.Firstname);
+			//InitialMenu.pobu.setText(StartMenu.Yourpobu);
 			dispose(); //ÇöÀç Ã¢ ´ÝÈû...ÀÌ°Å¸»°í °Á ÇÁ·¹ÀÓÀüÈ¯ ¾ø³ª
 			new InitialMenu().setVisible(true);
 		}
 	}
+	
 	public static void main(String[]args) {
 		new StartMenu();		
 	}
