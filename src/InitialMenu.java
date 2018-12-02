@@ -61,7 +61,7 @@ public class InitialMenu extends JFrame{
 	}
 	class Panel1 extends JPanel{//설명창 판넬
 		Panel1(){	//완전 시작페이지 판넬 생성자
-			setBackground(StartMenu.color);
+			setBackground(new Color(0xE7E5FD));
 			setLayout(null);
 			//냉장고 정보 입력하기
 			String name=JOptionPane.showInputDialog("이름을 입력하세요.");
@@ -70,8 +70,13 @@ public class InitialMenu extends JFrame{
 			JLabel inst2=new JLabel("날짜가 임박하면 색깔이 바뀝니다.");
 			JLabel inst3=new JLabel("자세한 설명은 \"사용 방법\"메뉴를 참고하세요.");
 			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
-
-			JLabel imageLabel=new JLabel(new ImageIcon("버튼2.png"));
+			
+			ImageIcon image=new ImageIcon("push.png");
+			Image img=image.getImage();
+			Image changedImg=img.getScaledInstance(350,350, Image.SCALE_SMOOTH);
+			ImageIcon Icon=new ImageIcon(changedImg);
+			JLabel imageLabel=new JLabel(Icon);
+			
 			//버튼이미지 넣기
 			add(greet);add(inst1);add(inst2);add(inst3);add(inst4);add(imageLabel);
 
@@ -80,13 +85,13 @@ public class InitialMenu extends JFrame{
 			inst2.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst3.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst4.setFont(new Font("맑은고딕",Font.BOLD,30));
-
+			
 			greet.setBounds(20, 40, 1000, 30);
 			inst1.setBounds(20, 100, 1000, 30);
 			inst2.setBounds(20, 160, 1000, 30);
 			inst3.setBounds(20, 220, 1000, 30);
 			inst4.setBounds(20, 280, 1500, 30);
-			imageLabel.setBounds(20,360,550,550);
+			imageLabel.setBounds(10,330,400,400);
 			imageLabel.addMouseListener(new MyMouseListener());
 			setVisible(true);
 		}
@@ -94,25 +99,6 @@ public class InitialMenu extends JFrame{
 			setBackground(color);
 			setLayout(null);
 			setSize(1500,850);
-			JLabel hey=new JLabel("다시 보려면 '다시보기' 를 클릭하세요.");
-			JButton seeagain=new JButton("다시보기");
-			add(hey);add(seeagain);
-			hey.setFont(new Font("맑은고딕",Font.BOLD,30));
-			seeagain.setFont(new Font("맑은고딕",Font.BOLD,25));
-			hey.setBounds(20, 350, 1000, 30);
-			seeagain.setBounds(40,500,150,30);
-			seeagain.addMouseListener(new MyMouseListener3());
-		}
-	}
-	class MyMouseListener3 extends MouseAdapter{  ///////여기 문제있어요~~
-		public void mouseClicked(MouseEvent e) {
-			String answer=JOptionPane.showInputDialog("비밀번호를 입력하세요.");
-			if(answer.equals(key)) {
-			setContentPane(panel2);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "틀렸습니다", "WRONG", JOptionPane.ERROR_MESSAGE);
-			}
 		}
 	}
 	class MyMouseListener extends MouseAdapter{ //Panel1의 버튼 이미지 클릭할때
@@ -120,6 +106,7 @@ public class InitialMenu extends JFrame{
 			createMenu(); //메뉴바 만들기
 			panel2=new Panel2();
 			setContentPane(panel2); //냉장고판넬로 바꾸기
+			key=JOptionPane.showInputDialog("비밀번호를 설정하세요.");
 		}
 	}
 	class Panel2 extends JPanel{//냉장고 판넬
@@ -218,10 +205,15 @@ public class InitialMenu extends JFrame{
 			switch(cmd) {
 			case "숨기기": 
 				setContentPane(new Panel1(new Color(0xF5F6F6)));
-				key=JOptionPane.showInputDialog("비밀번호를 설정하세요.");
 				break;
 			case "보기":
+				String answer=JOptionPane.showInputDialog("비밀번호를 입력하세요.");
+				if(answer.equals(key)) {
 				setContentPane(panel2);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "틀렸습니다", "WRONG", JOptionPane.ERROR_MESSAGE);
+				}
 				break;
 			case "종료하기":
 				int result=JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?","종료",JOptionPane.YES_NO_OPTION);
@@ -229,17 +221,15 @@ public class InitialMenu extends JFrame{
 					setContentPane(panel2);
 				}
 				else if(result==JOptionPane.YES_OPTION) {
-					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					dispose();
 				}
-				else {
-					setContentPane(panel2);
-				}
+				else {} 
 				break;
 			case "사용방법":
 				setContentPane(new InstructionPanel());
 				break;
 			case "새로고침":
-				new Menu초기화();
+				//
 				break;
 			}
 			//p.420참고
