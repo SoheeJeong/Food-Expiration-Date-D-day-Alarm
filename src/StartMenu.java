@@ -64,7 +64,7 @@ public class StartMenu extends JFrame{
 		add(Go);
 		setVisible(true);
 	}
-	class MyMouseListener extends MouseAdapter{
+	class MyMouseListener extends MouseAdapter{  ///////여기 문제있어요~~
 		public void mouseClicked(MouseEvent e) {
 			JButton btn=(JButton)e.getSource();
 			//InitialMenu.name.setText(StartMenu.Lastname+StartMenu.Firstname);
