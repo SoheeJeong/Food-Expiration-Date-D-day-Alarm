@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.*;
 
 public class InitialMenu extends JFrame{
@@ -14,6 +13,7 @@ public class InitialMenu extends JFrame{
 	public static int refnopi;
 	public static Panel1 panel1;
 	public static Panel2 panel2;
+	private String key;
 
 	public InitialMenu() {
 		setTitle("메뉴화면");
@@ -39,9 +39,9 @@ public class InitialMenu extends JFrame{
 
 		JMenuItem hide=new JMenuItem("숨기기");
 		JMenuItem show=new JMenuItem("보기");
-		JMenuItem HowtoMenu=new JMenu("사용방법");
-		JMenuItem clearMenu=new JMenu("새로고침");
-		JMenuItem exitMenu=new JMenu("종료하기");
+		JMenuItem HowtoMenu=new JMenuItem("사용방법");
+		JMenuItem clearMenu=new JMenuItem("새로고침");
+		JMenuItem exitMenu=new JMenuItem("종료하기");
 
 		refMenu.add(hide);
 		refMenu.add(show);
@@ -60,17 +60,17 @@ public class InitialMenu extends JFrame{
 		setVisible(true);
 	}
 	class Panel1 extends JPanel{//설명창 판넬
-		
 		Panel1(){	//완전 시작페이지 판넬 생성자
 			setBackground(StartMenu.color);
 			setLayout(null);
 			//냉장고 정보 입력하기
-			JLabel greet=new JLabel("님 안녕하세요.");
+			String name=JOptionPane.showInputDialog("이름을 입력하세요.");
+			JLabel greet=new JLabel(name+"님 안녕하세요.");
 			JLabel inst1=new JLabel("사용 방법: 아무 네모칸이나 눌러서 유통기한을 입력합니다.");
 			JLabel inst2=new JLabel("날짜가 임박하면 색깔이 바뀝니다.");
 			JLabel inst3=new JLabel("자세한 설명은 \"사용 방법\"메뉴를 참고하세요.");
 			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
-			
+
 			JLabel imageLabel=new JLabel(new ImageIcon("버튼2.png"));
 			//버튼이미지 넣기
 			add(greet);add(inst1);add(inst2);add(inst3);add(inst4);add(imageLabel);
@@ -81,7 +81,7 @@ public class InitialMenu extends JFrame{
 			inst3.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst4.setFont(new Font("맑은고딕",Font.BOLD,30));
 
-			greet.setBounds(120, 40, 1000, 30);
+			greet.setBounds(20, 40, 1000, 30);
 			inst1.setBounds(20, 100, 1000, 30);
 			inst2.setBounds(20, 160, 1000, 30);
 			inst3.setBounds(20, 220, 1000, 30);
@@ -94,10 +94,25 @@ public class InitialMenu extends JFrame{
 			setBackground(color);
 			setLayout(null);
 			setSize(1500,850);
-			JLabel hey=new JLabel("다시 보려면 '나의 냉장고' > '보기' 를 클릭하세요.");
-			add(hey);
+			JLabel hey=new JLabel("다시 보려면 '다시보기' 를 클릭하세요.");
+			JButton seeagain=new JButton("다시보기");
+			add(hey);add(seeagain);
 			hey.setFont(new Font("맑은고딕",Font.BOLD,30));
-			hey.setBounds(20, 400, 1000, 30);
+			seeagain.setFont(new Font("맑은고딕",Font.BOLD,25));
+			hey.setBounds(20, 350, 1000, 30);
+			seeagain.setBounds(40,500,150,30);
+			seeagain.addMouseListener(new MyMouseListener3());
+		}
+	}
+	class MyMouseListener3 extends MouseAdapter{  ///////여기 문제있어요~~
+		public void mouseClicked(MouseEvent e) {
+			String answer=JOptionPane.showInputDialog("비밀번호를 입력하세요.");
+			if(answer.equals(key)) {
+			setContentPane(panel2);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "틀렸습니다", "WRONG", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	class MyMouseListener extends MouseAdapter{ //Panel1의 버튼 이미지 클릭할때
@@ -183,17 +198,18 @@ public class InitialMenu extends JFrame{
 	}
 	class InstructionPanel extends JPanel{ ////////사용 방법 이미지 만들어야됨
 		InstructionPanel(){
-			setBackground(Color.WHITE);
-			ImageIcon image=new ImageIcon("버튼2.png");
+			//setBackground(Color.WHITE);
+			setSize(1500,850);
+			ImageIcon image=new ImageIcon("사용방법.png");
 			Image img=image.getImage();
 			Image changedImg=img.getScaledInstance(1500, 800, Image.SCALE_SMOOTH);
 			ImageIcon Icon=new ImageIcon(changedImg);
 			JLabel imge=new JLabel(Icon);
-			setLayout(null);
+			setLayout(new FlowLayout());
 			add(imge);		
-			setSize(1500,850);
+			imge.setVisible(true);
+			imge.setOpaque(true);
 			setVisible(true);
-
 		}
 	}
 	class MenuActionListener implements ActionListener{ //메뉴 클릭했을 때
@@ -202,11 +218,12 @@ public class InitialMenu extends JFrame{
 			switch(cmd) {
 			case "숨기기": 
 				setContentPane(new Panel1(new Color(0xF5F6F6)));
+				key=JOptionPane.showInputDialog("비밀번호를 설정하세요.");
 				break;
 			case "보기":
 				setContentPane(panel2);
 				break;
-			case "종료하기": //여기 왜안됨..
+			case "종료하기":
 				int result=JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?","종료",JOptionPane.YES_NO_OPTION);
 				if(result==JOptionPane.CLOSED_OPTION) {
 					setContentPane(panel2);
@@ -219,9 +236,7 @@ public class InitialMenu extends JFrame{
 				}
 				break;
 			case "사용방법":
-				InstructionPanel instructionpanel =new InstructionPanel();
-				setContentPane(instructionpanel);
-				setVisible(true);
+				setContentPane(new InstructionPanel());
 				break;
 			case "새로고침":
 				new Menu초기화();
