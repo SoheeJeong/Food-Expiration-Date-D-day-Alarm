@@ -1,64 +1,80 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class StartMenu extends JFrame{
-	public StartMenu(){
+	public static Color color=new Color(0xE1F5A9);
+	public static String Yourpobu;
+	private String Lastname;
+	private String Firstname;
+	//private String Yourpobu;
+
+	public StartMenu(){ //StartMenu¶ó´Â ÇÁ·¹ÀÓ
 		setTitle("½ÃÀÛÈ­¸é");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1500,850);
-		setLocationRelativeTo(null); //ÀÌ°Ç ¹ºÀÇ¹ÌÁö
+		setLocationRelativeTo(null); 
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon("½ÃÀÛÈ­¸é4.png")));
 		setLayout(new FlowLayout());
-		JLabel wc=new JLabel("Welcome!");
-		add(wc);
-		setSize(999,849);
-		setSize(1500,850);
+		setSize(1500,850); //Ã¢ Å©±â
 		setResizable(false);
 		setLayout(null);
-		Color color=new Color(0xE1F5A9);
+
+		JLabel start=new JLabel("È¯¿µÇÕ´Ï´Ù! Hello!");
+		JLabel lastName=new JLabel("¼º/Last name");
+		JLabel firstName=new JLabel("ÀÌ¸§/First name");
+		JLabel Pobu=new JLabel("Æ÷ºÎ ÇÑ¸¶µð!");
+		JTextField tfLast=new JTextField(20);
+		JTextField tfFirst=new JTextField(20);
+		JTextField tfPobu=new JTextField(20);
+		JButton Go=new JButton("½ÃÀÛÇÏ±â");
+		Lastname=tfLast.getText();
+		Firstname=tfFirst.getText();
+		Yourpobu=tfPobu.getText();
 		
-		
-		JLabel inst=new JLabel("³ÃÀå°íÀÇ Ãþ¼ö¿Í °¢ ÃþÀÇ °¡·Î, ¼¼·Î Ä­ ¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
-		JLabel garo=new JLabel("°¡·Î Ä­ ¼ö");
-		JLabel sero=new JLabel("¼¼·Î Ä­ ¼ö");
-		JLabel nopi=new JLabel("³ôÀÌ Ãþ ¼ö");
-		JTextField tfgaro=new JTextField(20);
-		JTextField tfsero=new JTextField(20);
-		JTextField tfnopi=new JTextField(20);
-		JButton Done=new JButton("ÀÛ¼º ¿Ï·á");
-		
-		inst.setBackground(color);
-		garo.setBackground(color);
-		sero.setBackground(color);
-		nopi.setBackground(color);
-		
-		inst.setBounds(150,340,700,30);
-		garo.setBounds(200,400,100,30);
-		sero.setBounds(200,440,100,30);
-		nopi.setBounds(200,480,100,30);
-		
-		tfgaro.setBounds(350,400,150,30);
-		tfsero.setBounds(350,440,150,30);
-		tfnopi.setBounds(350,480,150,30);
-		Done.setBounds(280,550,150,30);
-		
-		inst.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
-		garo.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		sero.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		nopi.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		Done.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		
-		add(inst);
-		add(garo);
-		add(tfgaro);
-		add(sero);
-		add(tfsero);
-		add(nopi);
-		add(tfnopi);
-		add(Done);
+		start.setBackground(color);
+		lastName.setBackground(color);
+		firstName.setBackground(color);
+		Pobu.setBackground(color);
+
+		start.setBounds(150,340,700,30);
+		lastName.setBounds(200,400,150,30);
+		firstName.setBounds(200,440,150,30);
+		Pobu.setBounds(200,480,150,30);
+
+		tfLast.setBounds(350,400,150,30);
+		tfFirst.setBounds(350,440,150,30);
+		tfPobu.setBounds(350,480,150,30);
+		Go.setBounds(280,550,150,30);
+
+		start.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
+		lastName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		firstName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Pobu.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Go.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		Go.addMouseListener(new MyMouseListener());
+
+		add(start);
+		add(lastName);
+		add(firstName);
+		add(Pobu);
+		add(tfLast);
+		add(tfFirst);
+		add(tfPobu);
+		add(Go);
 		setVisible(true);
 	}
+	class MyMouseListener extends MouseAdapter{  ///////¿©±â ¹®Á¦ÀÖ¾î¿ä~~
+		public void mouseClicked(MouseEvent e) {
+			JButton btn=(JButton)e.getSource();
+			//InitialMenu.name.setText(StartMenu.Lastname+StartMenu.Firstname);
+			//InitialMenu.pobu.setText(StartMenu.Yourpobu);
+			dispose(); //ÇöÀç Ã¢ ´ÝÈû...ÀÌ°Å¸»°í °Á ÇÁ·¹ÀÓÀüÈ¯ ¾ø³ª
+			new InitialMenu().setVisible(true);
+		}
+	}
+	
 	public static void main(String[]args) {
 		new StartMenu();		
 	}
