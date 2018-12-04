@@ -1,10 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
 import java.time.*;
 import java.util.*;
 
 public class InitialMenu extends JFrame{
+	public static JLabel[]label=new JLabel[100];
+	public static int arrYEAR[]=new int[100];
+	public static int arrMONTH[]=new int[100];
+	public static int arrDAY[]=new int[100];
+
 	public static JTextField name;
 	public static JTextField pobu;
 	public static JButton Done;
@@ -70,14 +76,13 @@ public class InitialMenu extends JFrame{
 			JLabel inst2=new JLabel("날짜가 임박하면 색깔이 바뀝니다.");
 			JLabel inst3=new JLabel("자세한 설명은 \"사용 방법\"메뉴를 참고하세요.");
 			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
-			
+
 			ImageIcon image=new ImageIcon("push.png");
 			Image img=image.getImage();
 			Image changedImg=img.getScaledInstance(350,350, Image.SCALE_SMOOTH);
 			ImageIcon Icon=new ImageIcon(changedImg);
 			JLabel imageLabel=new JLabel(Icon);
-			
-			//버튼이미지 넣기
+
 			add(greet);add(inst1);add(inst2);add(inst3);add(inst4);add(imageLabel);
 
 			greet.setFont(new Font("맑은고딕",Font.BOLD,30));
@@ -85,7 +90,7 @@ public class InitialMenu extends JFrame{
 			inst2.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst3.setFont(new Font("맑은고딕",Font.BOLD,30));
 			inst4.setFont(new Font("맑은고딕",Font.BOLD,30));
-			
+
 			greet.setBounds(20, 40, 1000, 30);
 			inst1.setBounds(20, 100, 1000, 30);
 			inst2.setBounds(20, 160, 1000, 30);
@@ -110,50 +115,61 @@ public class InitialMenu extends JFrame{
 		}
 	}
 	class Panel2 extends JPanel{//냉장고 판넬
-		Panel2(){
-			JLabel label = null;
+		Panel2(){ //라벨을 배열에 넣기...나중에 참조하게!!
 			setSize(1500,830);
 			setBackground(Color.BLACK);
 			setLayout(new GridLayout(10,10,1,1));
 			for(int i=0;i<100;i++) {
-				int num=i+1;
-				label=new JLabel();
-				label.setOpaque(true);
-				add(label);
-				label.setBackground(new Color(0xF5F6F6));
-				label.setFont(new Font("맑은고딕",Font.BOLD,25));
-				label.addMouseListener(new MyMouseListener2());
+				label[i]=new JLabel();
+				label[i].setOpaque(true);
+				add(label[i]);
+				label[i].setBackground(new Color(0xF5F6F6));
+				label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
+				label[i].addMouseListener(new MyMouseListener2());
 			}
 			setVisible(true);
 		}
 	}
-	class MyMouseListener2 extends MouseAdapter{//////////여기 문제있어요~~~유통기한 년,월,일 받아서 줘야됨 & 색깔바꿔야됨
+	class MyMouseListener2 extends MouseAdapter{//////////
 		public void mouseClicked(MouseEvent e) {//Panel2의 각 라벨 누를 때
 			JLabel la=(JLabel)e.getSource();
 			la.setFont(new Font("맑은고딕",Font.BOLD,30));
-			if(la.getText().isEmpty()) {
-				String foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
-				//유통기한 년, 월, 일 입력받기(year,month,date)
-				if(foodname!=null) 
-					la.setText(foodname);
+			String foodname = null;
+			String expdate=null;
+			String year=null;
+			String month=null;
+			String day=null;
+			foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
+			if(foodname!=null) {
+				la.setText(foodname);
+				year=JOptionPane.showInputDialog("유통기한 [yyyy년](year)을 숫자만 입력하세요.");
+				month=JOptionPane.showInputDialog("유통기한 [MM월](month)을 숫자만 입력하세요.");
+				day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
 			}
-			else if(!la.getText().isEmpty()){
-				//이름 바꾸기or유통기한 바꾸기or<<유통기한 보기->디데이로 보기 or날짜 보기>>or초기화하기 버튼 만들기
-				//아니면 새로운 프레임을 띄우던가
+			else {}
+			for(int i=0;i<100;i++) {
+				if(InitialMenu.label[i]==la) {
+					//배열에 유통기한 데이터값 넣기
+					arrYEAR[i]=Integer.parseInt(year); 
+					arrMONTH[i]=Integer.parseInt(month);
+					arrDAY[i]=Integer.parseInt(day);
+					//배경색 바꾸기
+					label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+					label[i].setOpaque(true);
+				}
 			}
-			//배경색 바꾸기
-			//la.setBackground(SetColor(year,month,day));
-			la.setOpaque(true);	
 		}
 	}
+
 	public int timecalculate(int year,int month, int day){ //dday 계산기
 		try {
-			Calendar today=Calendar.getInstance();
-			Calendar dday=Calendar.getInstance();
-			dday.set(year, month,day);
+			TimeZone tz=TimeZone.getTimeZone("Asia/Seoul");
+			Calendar today=Calendar.getInstance(tz);
+			Calendar dday = Calendar.getInstance(tz);
+			dday.set(year, month-1,day); ///왜인지는 모르겠는데 여기서 1 뺴야됨...왜지..?;;
 			long ddday=dday.getTimeInMillis()/(24*60*60*1000);
 			long tday=today.getTimeInMillis()/(24*60*60*1000);
-			long count=tday-ddday;
+			long count=ddday-tday;
 			return (int)count+1;
 		}
 		catch(Exception f) {
@@ -161,31 +177,29 @@ public class InitialMenu extends JFrame{
 			return -1;
 		}
 	}
-	class SetColor{ //유통기한별 라벨색깔 세팅하기
-		public Color SetColor(int year,int month,int day) {
-			int ddaycount=timecalculate(year,month,day);
-			Color colors = null;
-			if(ddaycount<=1) {
-				colors=new Color(0xFC2F2F);
-			}
-			else if(1<ddaycount&&ddaycount<=4) {
-				colors=new Color(0xF99E1E);
-			}
-			else if(4<ddaycount&&ddaycount<=7) {
-				colors= new Color(0xF4E228);
-			}
-			else if(7<ddaycount&&ddaycount<=14) {
-				colors=new Color(0x8BF462);
-			}
-			else if(14<ddaycount) {
-				colors= new Color(0x2FC0F1);
-			}
-			return colors;
+
+	public Color SetColor(int ddaycount) {
+		Color colors = null;
+		if(ddaycount<=1) {
+			colors=new Color(0xFC2F2F);
 		}
+		else if(1<ddaycount&&ddaycount<=4) {
+			colors=new Color(0xF99E1E);
+		}
+		else if(4<ddaycount&&ddaycount<=7) {
+			colors= new Color(0xF4E228);
+		}
+		else if(7<ddaycount&&ddaycount<=14) {
+			colors=new Color(0x8BF462);
+		}
+		else if(14<ddaycount) {
+			colors= new Color(0x2FC0F1);
+		}
+		return colors;
 	}
-	class InstructionPanel extends JPanel{ ////////사용 방법 이미지 만들어야됨
+
+	class InstructionPanel extends JPanel{ //사용방법
 		InstructionPanel(){
-			//setBackground(Color.WHITE);
 			setSize(1500,850);
 			ImageIcon image=new ImageIcon("사용방법.png");
 			Image img=image.getImage();
@@ -199,6 +213,7 @@ public class InitialMenu extends JFrame{
 			setVisible(true);
 		}
 	}
+
 	class MenuActionListener implements ActionListener{ //메뉴 클릭했을 때
 		public void actionPerformed(ActionEvent e) {
 			String cmd=e.getActionCommand();
@@ -209,7 +224,7 @@ public class InitialMenu extends JFrame{
 			case "보기":
 				String answer=JOptionPane.showInputDialog("비밀번호를 입력하세요.");
 				if(answer.equals(key)) {
-				setContentPane(panel2);
+					setContentPane(panel2);
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "틀렸습니다", "WRONG", JOptionPane.ERROR_MESSAGE);
@@ -229,10 +244,15 @@ public class InitialMenu extends JFrame{
 				setContentPane(new InstructionPanel());
 				break;
 			case "새로고침":
-				//
+				for(int i=0;i<100;i++) {
+					//배경색 바꾸기
+					if(!label[i].getText().isEmpty()) {
+						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setOpaque(true);
+					}
+				}
 				break;
 			}
-			//p.420참고
 		}
 	}
 }
