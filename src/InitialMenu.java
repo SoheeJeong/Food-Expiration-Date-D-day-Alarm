@@ -145,19 +145,20 @@ public class InitialMenu extends JFrame{
 				year=JOptionPane.showInputDialog("유통기한 [yyyy년](year)을 숫자만 입력하세요.");
 				month=JOptionPane.showInputDialog("유통기한 [MM월](month)을 숫자만 입력하세요.");
 				day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
-			}
-			else {}
-			for(int i=0;i<100;i++) {
-				if(InitialMenu.label[i]==la) {
-					//배열에 유통기한 데이터값 넣기
-					arrYEAR[i]=Integer.parseInt(year); 
-					arrMONTH[i]=Integer.parseInt(month);
-					arrDAY[i]=Integer.parseInt(day);
-					//배경색 바꾸기
-					label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-					label[i].setOpaque(true);
+
+				for(int i=0;i<100;i++) {
+					if(InitialMenu.label[i]==la) {
+						//배열에 유통기한 데이터값 넣기
+						arrYEAR[i]=Integer.parseInt(year); 
+						arrMONTH[i]=Integer.parseInt(month);
+						arrDAY[i]=Integer.parseInt(day);
+						//배경색 바꾸기
+						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setOpaque(true);
+					}
 				}
 			}
+			else {}
 		}
 	}
 
@@ -170,7 +171,7 @@ public class InitialMenu extends JFrame{
 			long ddday=dday.getTimeInMillis()/(24*60*60*1000);
 			long tday=today.getTimeInMillis()/(24*60*60*1000);
 			long count=ddday-tday;
-			return (int)count+1;
+			return (int)count;
 		}
 		catch(Exception f) {
 			f.printStackTrace();
