@@ -4,11 +4,6 @@ import java.awt.event.*;
 
 public class StartMenu extends JFrame{
 	public static Color color=new Color(0xE1F5A9);
-	public static String Yourpobu;
-	private String Lastname;
-	private String Firstname;
-	//private String Yourpobu;
-
 	public StartMenu(){ //StartMenu¶ó´Â ÇÁ·¹ÀÓ
 		setTitle("½ÃÀÛÈ­¸é");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,59 +17,26 @@ public class StartMenu extends JFrame{
 		setLayout(null);
 
 		JLabel start=new JLabel("È¯¿µÇÕ´Ï´Ù! Hello!");
-		JLabel lastName=new JLabel("¼º/Last name");
-		JLabel firstName=new JLabel("ÀÌ¸§/First name");
-		JLabel Pobu=new JLabel("Æ÷ºÎ ÇÑ¸¶µð!");
-		JTextField tfLast=new JTextField(20);
-		JTextField tfFirst=new JTextField(20);
-		JTextField tfPobu=new JTextField(20);
 		JButton Go=new JButton("½ÃÀÛÇÏ±â");
-		Lastname=tfLast.getText();
-		Firstname=tfFirst.getText();
-		Yourpobu=tfPobu.getText();
-		
 		start.setBackground(color);
-		lastName.setBackground(color);
-		firstName.setBackground(color);
-		Pobu.setBackground(color);
-
-		start.setBounds(150,340,700,30);
-		lastName.setBounds(200,400,150,30);
-		firstName.setBounds(200,440,150,30);
-		Pobu.setBounds(200,480,150,30);
-
-		tfLast.setBounds(350,400,150,30);
-		tfFirst.setBounds(350,440,150,30);
-		tfPobu.setBounds(350,480,150,30);
-		Go.setBounds(280,550,150,30);
-
-		start.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,20));
-		lastName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		firstName.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		Pobu.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
-		Go.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,18));
+		start.setBounds(200,400,700,30);
+		Go.setBounds(200,430,200,30);
+		start.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,23));
+		Go.setFont(new Font("¸¼Àº°íµñ",Font.BOLD,23));
 		Go.addMouseListener(new MyMouseListener());
 
 		add(start);
-		add(lastName);
-		add(firstName);
-		add(Pobu);
-		add(tfLast);
-		add(tfFirst);
-		add(tfPobu);
 		add(Go);
 		setVisible(true);
 	}
-	class MyMouseListener extends MouseAdapter{  ///////¿©±â ¹®Á¦ÀÖ¾î¿ä~~
+	class MyMouseListener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
 			JButton btn=(JButton)e.getSource();
-			//InitialMenu.name.setText(StartMenu.Lastname+StartMenu.Firstname);
-			//InitialMenu.pobu.setText(StartMenu.Yourpobu);
-			dispose(); //ÇöÀç Ã¢ ´ÝÈû...ÀÌ°Å¸»°í °Á ÇÁ·¹ÀÓÀüÈ¯ ¾ø³ª
+			dispose(); //ÇöÀç Ã¢ ´ÝÈû
 			new InitialMenu().setVisible(true);
 		}
 	}
-	
+
 	public static void main(String[]args) {
 		new StartMenu();		
 	}
