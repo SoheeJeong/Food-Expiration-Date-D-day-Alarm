@@ -20,7 +20,7 @@ public class StartMenu extends JFrame{
 		JButton Go=new JButton("Ω√¿€«œ±‚");
 		start.setBackground(color);
 		start.setBounds(200,400,700,30);
-		Go.setBounds(200,430,200,30);
+		Go.setBounds(200,450,200,30);
 		start.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,23));
 		Go.setFont(new Font("∏º¿∫∞ÌµÒ",Font.BOLD,23));
 		Go.addMouseListener(new MyMouseListener());
