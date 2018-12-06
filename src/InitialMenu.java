@@ -10,7 +10,8 @@ public class InitialMenu extends JFrame{
 	public static int arrYEAR[]=new int[100];
 	public static int arrMONTH[]=new int[100];
 	public static int arrDAY[]=new int[100];
-	public static String foodname;
+	public static String fName[]=new String[100];
+
 	public static JTextField name;
 	public static JTextField pobu;
 	public static JButton Done;
@@ -128,39 +129,79 @@ public class InitialMenu extends JFrame{
 			setVisible(true);
 		}
 	}
-	class MyMouseListener2 extends MouseAdapter{//////////
-		public void mouseClicked(MouseEvent e) {//Panel2의 각 라벨 누를 때
+	class MyMouseListener2 extends MouseAdapter{ //Panel2의 각 라벨 누를 때
+		public void mouseClicked(MouseEvent e) {
 			JLabel la=(JLabel)e.getSource();
-			la.setFont(new Font("맑은고딕",Font.BOLD,30));
+			String foodname=null;
 			String year=null;
 			String month=null;
 			String day=null;
-			foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
-			if(foodname!=null) {
-				year=JOptionPane.showInputDialog("유통기한 [yyyy년](year)을 숫자만 입력하세요.");
-				month=JOptionPane.showInputDialog("유통기한 [MM월](month)을 숫자만 입력하세요.");
-				day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
-				for(int i=0;i<100;i++) {
-					if(InitialMenu.label[i]==la) {
-						//배열에 유통기한 데이터값 넣기
-						arrYEAR[i]=Integer.parseInt(year); 
-						arrMONTH[i]=Integer.parseInt(month);
-						arrDAY[i]=Integer.parseInt(day);
-						//배경색 바꾸기
-						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-						///줄바꿈 왜안됨?????
-						label[i].setText(foodname+'\n'+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-						label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
-						label[i].setOpaque(true);
+			if(la.getBackground().equals(new Color(0xF5F6F6))) {
+				foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
+				if(!foodname.equals("")) {
+					year=JOptionPane.showInputDialog("유통기한 [yyyy년](year)을 숫자만 입력하세요.");
+					month=JOptionPane.showInputDialog("유통기한 [MM월](month)을 숫자만 입력하세요.");
+					day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
+					for(int i=0;i<100;i++) {
+						if(InitialMenu.label[i]==la) {
+							fName[i]=foodname;
+							//배열에 유통기한 데이터값 넣기
+							arrYEAR[i]=Integer.parseInt(year); 
+							arrMONTH[i]=Integer.parseInt(month);
+							arrDAY[i]=Integer.parseInt(day);
+							//배경색 바꾸기
+							label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+							///줄바꿈 왜안됨?????
+							label[i].setText(foodname+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+							label[i].setFont(new Font("맑은고딕",Font.BOLD,15));
+							label[i].setOpaque(true);
+						}
 					}
+
 				}
-				
+				else {
+					JOptionPane.showMessageDialog(null, "다시 입력하세요", "WRONG", JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			else {}
+			else {
+				int result=JOptionPane.showConfirmDialog(null, "칸을 비우려면 '예'를, 데이터를 다시 입력하려면 '아니오'를 선택하세요.","초기화",JOptionPane.YES_NO_OPTION);
+				if(result==JOptionPane.CLOSED_OPTION) {
+					setContentPane(panel2);
+					}
+				else if(result==JOptionPane.YES_OPTION) {
+					la.setText("");
+					la.setBackground(new Color(0xF5F6F6));
+				}
+				else {
+					foodname=null;
+					foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
+					if(!foodname.equals("")) {
+						year=JOptionPane.showInputDialog("유통기한 [yyyy년](year)을 숫자만 입력하세요.");
+						month=JOptionPane.showInputDialog("유통기한 [MM월](month)을 숫자만 입력하세요.");
+						day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
+						for(int i=0;i<100;i++) {
+							if(InitialMenu.label[i]==la) {
+								fName[i]=foodname;
+								//배열에 유통기한 데이터값 넣기
+								arrYEAR[i]=Integer.parseInt(year); 
+								arrMONTH[i]=Integer.parseInt(month);
+								arrDAY[i]=Integer.parseInt(day);
+								//배경색 바꾸기
+								label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+								label[i].setText(foodname+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+								label[i].setFont(new Font("맑은고딕",Font.BOLD,15));
+								label[i].setOpaque(true);
+							}
+						}
+
+					}
+				} 
+			}
+		
 		}
 	}
 
-	public int timecalculate(int year,int month, int day){ //dday 계산기
+	public int timecalculate(int year,int month, int day){ //디데이 계산기
 		try {
 			TimeZone tz=TimeZone.getTimeZone("Asia/Seoul");
 			Calendar today=Calendar.getInstance(tz);
@@ -247,8 +288,8 @@ public class InitialMenu extends JFrame{
 					//배경색 &디데이 바꾸기
 					if(!label[i].getText().isEmpty()) {
 						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-						label[i].setText(foodname+'\n'+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-						label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
+						label[i].setText(fName[i]+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setFont(new Font("맑은고딕",Font.BOLD,15));
 						label[i].setOpaque(true);
 					}
 				}
