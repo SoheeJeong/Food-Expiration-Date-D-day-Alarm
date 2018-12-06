@@ -72,7 +72,7 @@ public class InitialMenu extends JFrame{
 			String name=JOptionPane.showInputDialog("이름을 입력하세요.");
 			JLabel greet=new JLabel(name+"님 안녕하세요.");
 			JLabel inst1=new JLabel("Food Expiration Date D-day Alarm 에 오신 것을 환영합니다.");
-			JLabel inst2=new JLabel("사용 방법은 \"사용 방법\" 메뉴를 참고하세요.");
+			JLabel inst2=new JLabel("사용 방법은 \"사용방법\" 메뉴를 참고하세요.");
 			JLabel inst3=new JLabel("아래 버튼을 누르고 기억할 수 있는 비밀번호를 설정하세요.");
 			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
 
