@@ -71,9 +71,9 @@ public class InitialMenu extends JFrame{
 			//냉장고 정보 입력하기
 			String name=JOptionPane.showInputDialog("이름을 입력하세요.");
 			JLabel greet=new JLabel(name+"님 안녕하세요.");
-			JLabel inst1=new JLabel("사용 방법: 아무 네모칸이나 눌러서 유통기한을 입력합니다.");
-			JLabel inst2=new JLabel("날짜가 임박하면 색깔이 바뀝니다.");
-			JLabel inst3=new JLabel("자세한 설명은 \"사용 방법\"메뉴를 참고하세요.");
+			JLabel inst1=new JLabel("Food Expiration Date D-day Alarm 에 오신 것을 환영합니다.");
+			JLabel inst2=new JLabel("사용 방법은 \"사용방법\" 메뉴를 참고하세요.");
+			JLabel inst3=new JLabel("아래 버튼을 누르고 기억할 수 있는 비밀번호를 설정하세요.");
 			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
 
 			ImageIcon image=new ImageIcon("push.png");
@@ -93,7 +93,7 @@ public class InitialMenu extends JFrame{
 			greet.setBounds(20, 40, 1000, 30);
 			inst1.setBounds(20, 100, 1000, 30);
 			inst2.setBounds(20, 160, 1000, 30);
-			inst3.setBounds(20, 220, 1000, 30);
+			inst3.setBounds(20, 220, 1500, 30);
 			inst4.setBounds(20, 280, 1500, 30);
 			imageLabel.setBounds(10,330,400,400);
 			imageLabel.addMouseListener(new MyMouseListener());
@@ -123,7 +123,6 @@ public class InitialMenu extends JFrame{
 				label[i].setOpaque(true);
 				add(label[i]);
 				label[i].setBackground(new Color(0xF5F6F6));
-				label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
 				label[i].addMouseListener(new MyMouseListener2());
 			}
 			setVisible(true);
@@ -153,7 +152,7 @@ public class InitialMenu extends JFrame{
 							label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
 							///줄바꿈 왜안됨?????
 							label[i].setText(foodname+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-							label[i].setFont(new Font("맑은고딕",Font.BOLD,15));
+							label[i].setFont(new Font("맑은고딕",Font.BOLD,17));
 							label[i].setOpaque(true);
 						}
 					}
@@ -189,7 +188,7 @@ public class InitialMenu extends JFrame{
 								//배경색 바꾸기
 								label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
 								label[i].setText(foodname+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-								label[i].setFont(new Font("맑은고딕",Font.BOLD,15));
+								label[i].setFont(new Font("맑은고딕",Font.BOLD,17));
 								label[i].setOpaque(true);
 							}
 						}
@@ -289,7 +288,7 @@ public class InitialMenu extends JFrame{
 					if(!label[i].getText().isEmpty()) {
 						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
 						label[i].setText(fName[i]+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-						label[i].setFont(new Font("맑은고딕",Font.BOLD,15));
+						label[i].setFont(new Font("맑은고딕",Font.BOLD,17));
 						label[i].setOpaque(true);
 					}
 				}
