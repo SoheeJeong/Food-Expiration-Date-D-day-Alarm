@@ -10,13 +10,11 @@ public class InitialMenu extends JFrame{
 	public static int arrYEAR[]=new int[100];
 	public static int arrMONTH[]=new int[100];
 	public static int arrDAY[]=new int[100];
-
+	public static String foodname;
 	public static JTextField name;
 	public static JTextField pobu;
 	public static JButton Done;
-	public static int refgaro;
-	public static int refsero;
-	public static int refnopi;
+
 	public static Panel1 panel1;
 	public static Panel2 panel2;
 	private String key;
@@ -134,18 +132,14 @@ public class InitialMenu extends JFrame{
 		public void mouseClicked(MouseEvent e) {//Panel2의 각 라벨 누를 때
 			JLabel la=(JLabel)e.getSource();
 			la.setFont(new Font("맑은고딕",Font.BOLD,30));
-			String foodname = null;
-			String expdate=null;
 			String year=null;
 			String month=null;
 			String day=null;
 			foodname=JOptionPane.showInputDialog("음식 이름을 입력하세요.");
 			if(foodname!=null) {
-				la.setText(foodname);
 				year=JOptionPane.showInputDialog("유통기한 [yyyy년](year)을 숫자만 입력하세요.");
 				month=JOptionPane.showInputDialog("유통기한 [MM월](month)을 숫자만 입력하세요.");
 				day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
-
 				for(int i=0;i<100;i++) {
 					if(InitialMenu.label[i]==la) {
 						//배열에 유통기한 데이터값 넣기
@@ -154,9 +148,13 @@ public class InitialMenu extends JFrame{
 						arrDAY[i]=Integer.parseInt(day);
 						//배경색 바꾸기
 						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						///줄바꿈 왜안됨?????
+						label[i].setText(foodname+'\n'+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
 						label[i].setOpaque(true);
 					}
 				}
+				
 			}
 			else {}
 		}
@@ -246,9 +244,11 @@ public class InitialMenu extends JFrame{
 				break;
 			case "새로고침":
 				for(int i=0;i<100;i++) {
-					//배경색 바꾸기
+					//배경색 &디데이 바꾸기
 					if(!label[i].getText().isEmpty()) {
 						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setText(foodname+'\n'+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
 						label[i].setOpaque(true);
 					}
 				}
