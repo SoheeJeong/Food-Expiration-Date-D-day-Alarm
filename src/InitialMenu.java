@@ -10,7 +10,8 @@ public class InitialMenu extends JFrame{
 	public static int arrYEAR[]=new int[100];
 	public static int arrMONTH[]=new int[100];
 	public static int arrDAY[]=new int[100];
-	public static String foodname;
+	public static String fName[]=new String[100];
+	
 	public static JTextField name;
 	public static JTextField pobu;
 	public static JButton Done;
@@ -132,6 +133,7 @@ public class InitialMenu extends JFrame{
 		public void mouseClicked(MouseEvent e) {//Panel2의 각 라벨 누를 때
 			JLabel la=(JLabel)e.getSource();
 			la.setFont(new Font("맑은고딕",Font.BOLD,30));
+			String foodname=null;
 			String year=null;
 			String month=null;
 			String day=null;
@@ -142,6 +144,7 @@ public class InitialMenu extends JFrame{
 				day=JOptionPane.showInputDialog("유통기한 [dd일](date)을 숫자만 입력하세요.");
 				for(int i=0;i<100;i++) {
 					if(InitialMenu.label[i]==la) {
+						fName[i]=foodname;
 						//배열에 유통기한 데이터값 넣기
 						arrYEAR[i]=Integer.parseInt(year); 
 						arrMONTH[i]=Integer.parseInt(month);
@@ -247,7 +250,7 @@ public class InitialMenu extends JFrame{
 					//배경색 &디데이 바꾸기
 					if(!label[i].getText().isEmpty()) {
 						label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-						label[i].setText(foodname+'\n'+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
+						label[i].setText(fName[i]+'\n'+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
 						label[i].setFont(new Font("맑은고딕",Font.BOLD,25));
 						label[i].setOpaque(true);
 					}
