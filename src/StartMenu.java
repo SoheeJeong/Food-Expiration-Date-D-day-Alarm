@@ -32,7 +32,7 @@ public class StartMenu extends JFrame{
 	class MyMouseListener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e) {
 			JButton btn=(JButton)e.getSource();
-			dispose(); //ÇöÀç Ã¢ ´İÈû
+			dispose(); //ÇöÀç ÇÁ·¹ÀÓ ´İÈû
 			new InitialMenu().setVisible(true);
 		}
 	}
