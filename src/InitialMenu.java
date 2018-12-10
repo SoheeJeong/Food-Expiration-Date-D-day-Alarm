@@ -114,7 +114,7 @@ public class InitialMenu extends JFrame{
 		}
 	}
 	class Panel2 extends JPanel{//냉장고 판넬
-		Panel2(){ //라벨을 배열에 넣기...나중에 참조하게!!
+		Panel2(){ //라벨을 배열에 넣기
 			setSize(1500,830);
 			setBackground(Color.BLACK);
 			setLayout(new GridLayout(10,10,1,1));
@@ -150,7 +150,6 @@ public class InitialMenu extends JFrame{
 							arrDAY[i]=Integer.parseInt(day);
 							//배경색 바꾸기
 							label[i].setBackground(SetColor(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
-							///줄바꿈 왜안됨?????
 							label[i].setText(foodname+" D- "+Integer.toString(timecalculate(arrYEAR[i],arrMONTH[i],arrDAY[i])));
 							label[i].setFont(new Font("맑은고딕",Font.BOLD,17));
 							label[i].setOpaque(true);
@@ -205,7 +204,7 @@ public class InitialMenu extends JFrame{
 			TimeZone tz=TimeZone.getTimeZone("Asia/Seoul");
 			Calendar today=Calendar.getInstance(tz);
 			Calendar dday = Calendar.getInstance(tz);
-			dday.set(year, month-1,day); ///왜인지는 모르겠는데 여기서 1 뺴야됨...왜지..?;;
+			dday.set(year, month-1,day);
 			long ddday=dday.getTimeInMillis()/(24*60*60*1000);
 			long tday=today.getTimeInMillis()/(24*60*60*1000);
 			long count=ddday-tday;
