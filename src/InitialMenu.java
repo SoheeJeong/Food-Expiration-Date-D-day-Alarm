@@ -76,7 +76,7 @@ public class InitialMenu extends JFrame{
 			JLabel inst3=new JLabel("아래 버튼을 누르고 기억할 수 있는 비밀번호를 설정하세요.");
 			JLabel inst4=new JLabel("시작하려면 버튼을 클릭하세요!");
 
-			ImageIcon image=new ImageIcon("push.png");
+			ImageIcon image=new ImageIcon("images/push.png");
 			Image img=image.getImage();
 			Image changedImg=img.getScaledInstance(350,350, Image.SCALE_SMOOTH);
 			ImageIcon Icon=new ImageIcon(changedImg);
@@ -239,7 +239,7 @@ public class InitialMenu extends JFrame{
 	class InstructionPanel extends JPanel{ //사용방법
 		InstructionPanel(){
 			setSize(1500,850);
-			ImageIcon image=new ImageIcon("사용방법.png");
+			ImageIcon image=new ImageIcon("images/howtouse.png");
 			Image img=image.getImage();
 			Image changedImg=img.getScaledInstance(1500, 800, Image.SCALE_SMOOTH);
 			ImageIcon Icon=new ImageIcon(changedImg);
