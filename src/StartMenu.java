@@ -10,7 +10,7 @@ public class StartMenu extends JFrame{
 		setSize(1500,850);
 		setLocationRelativeTo(null); 
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon("시작화면4.png")));
+		setContentPane(new JLabel(new ImageIcon("images/start.png")));
 		setLayout(new FlowLayout());
 		setSize(1500,850); //창 크기
 		setResizable(false);
